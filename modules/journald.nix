@@ -1,0 +1,7 @@
+{
+  services.journald.extraConfig = ''
+    SystemMaxUse=500M
+    SystemKeepFree=1G
+    MaxRetentionSec=7day
+  '';
+}

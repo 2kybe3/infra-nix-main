@@ -1,0 +1,18 @@
+keys:
+  - &nix-main age198xuk8yt5aqywee4zg7968ecq0ve8shhumq6fytxq5qyyp5mqvtssy66z0
+
+creation_rules:
+  - path_regex: secrets/(wireguard|users|syncthing(-api)?|mullvad|kybe-backend|monitoring|mail-system|uptime-kuma)\.yaml$
+    key_groups:
+    - age:
+      - *nix-main
+
+  - path_regex: secrets/nix-main-syncthing-(cert|key).pem$
+    key_groups:
+    - age:
+      - *nix-main
+
+  - path_regex: secrets/acme.env.bin$
+    key_groups:
+    - age:
+      - *nix-main
