@@ -14,4 +14,3 @@ in {
 
   services.caddy.virtualHosts.${domain} = createCaddyProxy 3100;
 }
-

@@ -35,7 +35,7 @@ in {
   services.prometheus = {
     enable = true;
     port = 9001;
-    webExternalUrl = domain;
+    webExternalUrl = "https://${domain}/";
     extraFlags = ["--web.enable-admin-api"];
     checkConfig = "syntax-only";
     scrapeConfigs = [
@@ -72,7 +72,7 @@ in {
         scheme = "https";
         static_configs = [
           {
-            targets = ["syncthing.server.kybe.xyz"];
+            targets = ["syncthing.nix-main.kybe.xyz"];
           }
         ];
         authorization.credentials_file = config.sops.secrets.syncthing-api-server.path;

@@ -1,0 +1,47 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REPO_URL: https://git.kybe.xyz/2kybe3/infra-nix-main.git
+
+  BUILDER_USERNAME: ci
+  BUILDER_IP: nix-builder.internal.kybe.xyz
+
+  TARGET_USERNAME: root
+  TARGET_HOSTNAME: nix-main
+  TARGET_IP: nix-main.internal.kybe.xyz
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-latest
+
+    steps:
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/key
+          chmod 600 ~/.ssh/key
+          ssh-keyscan -H $TARGET_IP >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        run: |
+          jq -n \
+            --arg repo "$REPO_URL" \
+            --arg host "$TARGET_HOSTNAME" \
+            --arg ip "$TARGET_IP" \
+            --arg user "$TARGET_USERNAME" \
+            '{repo: $repo, host: $host, ip: $ip, user: $user}' \
+            > deploy.json
+
+          scp -i ~/.ssh/key deploy.json $BUILDER_USERNAME@$BUILDER_IP:/tmp/deploy.json
+
+          ssh -i ~/.ssh/key $BUILDER_USERNAME@$BUILDER_IP "build /tmp/deploy.json"
+
+      - name: Cleanup SSH
+        run: |
+          rm -rf ~/.ssh

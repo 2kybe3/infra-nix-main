@@ -13,8 +13,8 @@
     createCaddyProxy
     ;
 
-  syncthingUser ="root";
-  homeDir ="/root";
+  syncthingUser = "root";
+  homeDir = "/root";
   folderDir = "${homeDir}/syncthing";
   dataDir = folderDir;
 
@@ -153,4 +153,3 @@ in {
     };
   };
 }
-
