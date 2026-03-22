@@ -7,10 +7,10 @@
     ./proxmox.nix
 
     "${self}/modules/lib"
-    "${self}/modules/caddy"
     "${self}/modules/arr.nix"
     "${self}/modules/nix.nix"
     "${self}/modules/sops.nix"
+    "${self}/modules/caddy.nix"
     "${self}/modules/monitoring"
     "${self}/modules/networking"
     "${self}/modules/torrents.nix"

@@ -1,4 +1,4 @@
-{}: {
+{
   createCaddyProxy = port: {
     extraConfig = ''
       encode
