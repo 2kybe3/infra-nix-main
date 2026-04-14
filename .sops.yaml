@@ -7,12 +7,12 @@ creation_rules:
     - age:
       - *nix-main
 
-  - path_regex: secrets/nix-main-syncthing-(cert|key).pem$
+  - path_regex: secrets/nix-main-syncthing-(cert|key)\.pem$
     key_groups:
     - age:
       - *nix-main
 
-  - path_regex: secrets/caddy.env.bin$
+  - path_regex: secrets/(caddy|miniflux)\.env\.bin$
     key_groups:
     - age:
       - *nix-main

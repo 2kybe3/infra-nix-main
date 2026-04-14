@@ -13,6 +13,7 @@
     "${self}/modules/caddy.nix"
     "${self}/modules/monitoring"
     "${self}/modules/networking"
+    "${self}/modules/miniflux.nix"
     "${self}/modules/torrents.nix"
     "${self}/modules/journald.nix"
     "${self}/modules/syncthing.nix"
