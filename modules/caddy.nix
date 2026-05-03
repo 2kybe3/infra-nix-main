@@ -3,20 +3,20 @@
   pkgs,
   config,
   ...
-}: let
-  inherit
-    (config.kybe.lib)
+}:
+let
+  inherit (config.kybe.lib)
     domain
     ;
-  inherit
-    (config.kybe.lib.caddy)
+  inherit (config.kybe.lib.caddy)
     createRawCaddyProxy
     ;
 
   vhosts = config.services.caddy.virtualHosts;
   names = builtins.attrNames vhosts;
   links = builtins.concatStringsSep "\n" (map (name: "https://${name}") names);
-in {
+in
+{
   sops.secrets.caddy = {
     sopsFile = "${self}/secrets/caddy.env.bin";
     format = "binary";
@@ -25,11 +25,12 @@ in {
   services.caddy = {
     enable = true;
     package = pkgs.caddy.withPlugins {
-      plugins = ["github.com/caddy-dns/cloudflare@v0.2.3"];
-      hash = "sha256-bL1cpMvDogD/pdVxGA8CAMEXazWpFDBiGBxG83SmXLA=";
+      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.3" ];
+      hash = "sha256-+htYZclHv9qI0TeHcBFvPkWzJVAZ5jqzTODrh4YmqXY=";
     };
 
-    virtualHosts."${domain}" = createRawCaddyProxy "respond \"${config.kybe.lib.hostName}\n\n${links}\"";
+    virtualHosts."${domain}" =
+      createRawCaddyProxy "respond \"${config.kybe.lib.hostName}\n\n${links}\"";
     environmentFile = config.sops.secrets.caddy.path;
   };
 
