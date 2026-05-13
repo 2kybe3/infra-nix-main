@@ -3,13 +3,12 @@
   lib,
   config,
   ...
-}: let
-  inherit
-    (config.kybe.lib)
+}:
+let
+  inherit (config.kybe.lib)
     domain
     ;
-  inherit
-    (config.kybe.lib.caddy)
+  inherit (config.kybe.lib.caddy)
     createCaddyProxy
     ;
 
@@ -47,10 +46,6 @@
       id = "d7tbq-371tj";
       path = "phone/dcim";
     };
-    "phone/aesis" = {
-      id = "c2vbp-mdgxw";
-      path = "phone/aesis";
-    };
     "obsidian" = {
       id = "erg2o-nnpy1";
       path = "obsidian";
@@ -69,7 +64,8 @@
       };
     };
   };
-in {
+in
+{
   sops.secrets = {
     syncthingPass = {
       sopsFile = "${self}/secrets/syncthing.yaml";
@@ -138,18 +134,17 @@ in {
         };
       };
 
-      folders =
-        lib.mapAttrs
-        (_: v:
-          base
-          // {
-            id = v.id;
-            path = "${folderDir}/${v.path}";
-          }
-          // lib.optionalAttrs (v ? versioning) {
-            versioning = v.versioning;
-          })
-        folderDefs;
+      folders = lib.mapAttrs (
+        _: v:
+        base
+        // {
+          id = v.id;
+          path = "${folderDir}/${v.path}";
+        }
+        // lib.optionalAttrs (v ? versioning) {
+          versioning = v.versioning;
+        }
+      ) folderDefs;
     };
   };
 }
