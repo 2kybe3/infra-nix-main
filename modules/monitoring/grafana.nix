@@ -28,9 +28,10 @@ in
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 2342 ];
+
   services.grafana = {
     enable = true;
-
     settings = {
       server = {
         domain = domain;
