@@ -2,10 +2,11 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options.kybe.lib = lib.mkOption {
     type = lib.types.attrs;
-    default = {};
+    default = { };
   };
-  config.kybe.lib = import ./lib.nix {inherit config;};
+  config.kybe.lib = import ./lib.nix { inherit config; };
 }

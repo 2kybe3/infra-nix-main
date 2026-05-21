@@ -1,11 +1,12 @@
-{config, ...}: let
-  inherit
-    (config.kybe.lib.caddy)
+{ config, ... }:
+let
+  inherit (config.kybe.lib.caddy)
     createCaddyProxy
     ;
 
   domain = "loki.${config.kybe.lib.domain}";
-in {
+in
+{
   services.loki = {
     enable = true;
 

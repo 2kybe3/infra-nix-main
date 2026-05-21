@@ -4,13 +4,12 @@
   pkgs,
   config,
   ...
-}: let
-  inherit
-    (config.kybe.lib)
+}:
+let
+  inherit (config.kybe.lib)
     domain
     ;
-  inherit
-    (config.kybe.lib.caddy)
+  inherit (config.kybe.lib.caddy)
     createCaddyProxy
     ;
 
@@ -25,7 +24,8 @@
   ];
   wgEndpoint = "193.32.248.66:51820";
   wgPublicKey = "0qSP0VxoIhEhRK+fAHVvmfRdjPs2DmmpOCNLFP/7cGw=";
-in {
+in
+{
   services = {
     transmission = {
       enable = true;
@@ -51,7 +51,7 @@ in {
 
   systemd.services = {
     transmission = {
-      requires = ["netns-${wgNamespace}.service"];
+      requires = [ "netns-${wgNamespace}.service" ];
       after = [
         "netns-${wgNamespace}.service"
         "wireguard-${wgInterface}.service"
@@ -64,29 +64,31 @@ in {
     };
 
     transmission-namespace-forward = {
-      wantedBy = ["multi-user.target"];
-      partOf = ["transmission.service"];
-      requires = ["netns-${wgNamespace}.service"];
+      wantedBy = [ "multi-user.target" ];
+      partOf = [ "transmission.service" ];
+      requires = [ "netns-${wgNamespace}.service" ];
       after = [
         "netns-${wgNamespace}.service"
         "transmission.service"
       ];
       serviceConfig = {
         Restart = "on-failure";
-        ExecStart = let
-          socatBin = "${pkgs.socat}/bin/socat";
-          transmissionAddress = config.services.transmission.settings.rpc-bind-address;
-          transmissionRPCPort = toString config.services.transmission.settings.rpc-port;
-        in ''
-          ${socatBin} tcp-listen:${transmissionRPCPort},fork,reuseaddr \
-          exec:'${pkgs.iproute2}/bin/ip netns exec ${wgNamespace} ${socatBin} STDIO "tcp-connect:${transmissionAddress}:${transmissionRPCPort}"',nofork
-        '';
+        ExecStart =
+          let
+            socatBin = "${pkgs.socat}/bin/socat";
+            transmissionAddress = config.services.transmission.settings.rpc-bind-address;
+            transmissionRPCPort = toString config.services.transmission.settings.rpc-port;
+          in
+          ''
+            ${socatBin} tcp-listen:${transmissionRPCPort},fork,reuseaddr \
+            exec:'${pkgs.iproute2}/bin/ip netns exec ${wgNamespace} ${socatBin} STDIO "tcp-connect:${transmissionAddress}:${transmissionRPCPort}"',nofork
+          '';
       };
     };
 
     "netns-${wgNamespace}" = {
       description = "Network namespace ${wgNamespace}";
-      before = ["wireguard-${wgInterface}.service"];
+      before = [ "wireguard-${wgInterface}.service" ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;

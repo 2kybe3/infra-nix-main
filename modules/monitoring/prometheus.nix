@@ -2,14 +2,15 @@
   self,
   config,
   ...
-}: let
-  inherit
-    (config.kybe.lib.caddy)
+}:
+let
+  inherit (config.kybe.lib.caddy)
     createCaddyProxy
     ;
 
   domain = "prometheus.${config.kybe.lib.domain}";
-in {
+in
+{
   sops.secrets = {
     syncthing-api-server = {
       sopsFile = "${self}/secrets/syncthing-api.yaml";
@@ -36,7 +37,7 @@ in {
     enable = true;
     port = 9001;
     webExternalUrl = "https://${domain}/";
-    extraFlags = ["--web.enable-admin-api"];
+    extraFlags = [ "--web.enable-admin-api" ];
     checkConfig = "syntax-only";
     scrapeConfigs = [
       {
@@ -44,7 +45,7 @@ in {
         scrape_interval = "1s";
         static_configs = [
           {
-            targets = ["proxmox.internal.kybe.xyz:9100"];
+            targets = [ "proxmox.internal.kybe.xyz:9100" ];
           }
         ];
       }
@@ -53,7 +54,7 @@ in {
         scrape_interval = "1s";
         static_configs = [
           {
-            targets = ["caddy-public.internal.kybe.xyz:2019"];
+            targets = [ "caddy-public.internal.kybe.xyz:2019" ];
           }
         ];
       }
@@ -62,7 +63,7 @@ in {
         scrape_interval = "1s";
         static_configs = [
           {
-            targets = ["caddy-internal.internal.kybe.xyz:2019"];
+            targets = [ "caddy-internal.internal.kybe.xyz:2019" ];
           }
         ];
       }
@@ -72,7 +73,7 @@ in {
         scheme = "https";
         static_configs = [
           {
-            targets = ["syncthing.nix-main.kybe.xyz"];
+            targets = [ "syncthing.nix-main.kybe.xyz" ];
           }
         ];
         authorization.credentials_file = config.sops.secrets.syncthing-api-server.path;
@@ -83,7 +84,7 @@ in {
         scheme = "https";
         static_configs = [
           {
-            targets = ["syncthing.knx.kybe.xyz"];
+            targets = [ "syncthing.knx.kybe.xyz" ];
           }
         ];
         authorization.credentials_file = config.sops.secrets.syncthing-api-knx.path;
@@ -93,7 +94,7 @@ in {
         scrape_interval = "1s";
         static_configs = [
           {
-            targets = ["backend.internal.kybe.xyz:3000"];
+            targets = [ "backend.internal.kybe.xyz:3000" ];
           }
         ];
         authorization.credentials_file = config.sops.secrets.kybe-backend-api.path;
@@ -103,7 +104,7 @@ in {
         scrape_interval = "1s";
         static_configs = [
           {
-            targets = ["uptime-kuma.internal.kybe.xyz"];
+            targets = [ "uptime-kuma.internal.kybe.xyz" ];
           }
         ];
         basic_auth = {

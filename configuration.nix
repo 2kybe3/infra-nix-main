@@ -2,7 +2,8 @@
   self,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./proxmox.nix
 
