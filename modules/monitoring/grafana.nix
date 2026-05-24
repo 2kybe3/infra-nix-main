@@ -48,7 +48,7 @@ in
       smtp = {
         enabled = true;
         host = "mail.kybe.xyz:587";
-        user = "system@kybe.xyz";
+        user = "noreply@kybe.xyz";
         from_address = "system+grafana@kybe.xyz";
         password = "$__file{${config.sops.secrets.mail-system.path}}";
       };
