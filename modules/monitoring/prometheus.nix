@@ -79,17 +79,6 @@ in
         authorization.credentials_file = config.sops.secrets.syncthing-api-server.path;
       }
       {
-        job_name = "syncthing-knx";
-        scrape_interval = "1s";
-        scheme = "https";
-        static_configs = [
-          {
-            targets = [ "syncthing.knx.kybe.xyz" ];
-          }
-        ];
-        authorization.credentials_file = config.sops.secrets.syncthing-api-knx.path;
-      }
-      {
         job_name = "kybe-backend";
         scrape_interval = "1s";
         static_configs = [
