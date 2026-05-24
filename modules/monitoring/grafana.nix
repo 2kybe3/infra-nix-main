@@ -49,7 +49,7 @@ in
         enabled = true;
         host = "mail.kybe.xyz:587";
         user = "noreply@kybe.xyz";
-        from_address = "system+grafana@kybe.xyz";
+        from_address = "noreply+grafana@kybe.xyz";
         password = "$__file{${config.sops.secrets.mail-system.path}}";
       };
     };
