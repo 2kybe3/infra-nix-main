@@ -5,10 +5,10 @@
   ...
 }:
 let
-  inherit (config.kybe.lib)
+  inherit (config.kylib)
     domain
     ;
-  inherit (config.kybe.lib.caddy)
+  inherit (config.kylib.caddy)
     createCaddyProxy
     ;
 
@@ -72,11 +72,11 @@ in
       owner = config.services.syncthing.user;
     };
     syncthingKey = {
-      sopsFile = "${self}/secrets/${config.kybe.lib.hostName}-syncthing-key.pem";
+      sopsFile = "${self}/secrets/${config.kylib.hostName}-syncthing-key.pem";
       format = "binary";
     };
     syncthingCert = {
-      sopsFile = "${self}/secrets/${config.kybe.lib.hostName}-syncthing-cert.pem";
+      sopsFile = "${self}/secrets/${config.kylib.hostName}-syncthing-cert.pem";
       format = "binary";
     };
   };
@@ -90,10 +90,6 @@ in
       21027
     ];
   };
-
-  systemd.tmpfiles.rules = lib.mkIf (config.kybe.lib.hostName == "knx") [
-    "L+ ${homeDir}/Documents - - - - /home/kybe/syncthing/documents"
-  ];
 
   services.caddy.virtualHosts."syncthing.${domain}" = createCaddyProxy 8384;
 

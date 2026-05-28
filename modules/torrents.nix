@@ -6,10 +6,10 @@
   ...
 }:
 let
-  inherit (config.kybe.lib)
+  inherit (config.kylib)
     domain
     ;
-  inherit (config.kybe.lib.caddy)
+  inherit (config.kylib.caddy)
     createCaddyProxy
     ;
 

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  inherit (config.kybe.lib)
+  inherit (config.kylib)
     domain
     ;
-  inherit (config.kybe.lib.caddy)
+  inherit (config.kylib.caddy)
     createRawCaddyProxy
     ;
 
@@ -29,8 +29,7 @@ in
       hash = "sha256-M1vg27XU0y54DBffviY5fMkLorF7sKsrZP3Yiwq8sZ0=";
     };
 
-    virtualHosts."${domain}" =
-      createRawCaddyProxy "respond \"${config.kybe.lib.hostName}\n\n${links}\"";
+    virtualHosts."${domain}" = createRawCaddyProxy "respond \"${config.kylib.hostName}\n\n${links}\"";
     environmentFile = config.sops.secrets.caddy.path;
   };
 

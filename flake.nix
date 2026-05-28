@@ -27,9 +27,7 @@
     }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
       nixosConfigurations."nix-main" = nixpkgs.lib.nixosSystem {
@@ -40,16 +38,16 @@
         };
 
         modules = [
-          ./configuration.nix
+          ./host/infra-nix-main/default.nix
           sops-nix.nixosModules.sops
         ];
       };
-      formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
     }
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+
         treefmt-eval = treefmt.lib.evalModule pkgs ./treefmt.nix;
       in
       {

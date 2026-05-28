@@ -4,11 +4,11 @@
   ...
 }:
 let
-  inherit (config.kybe.lib.caddy)
+  inherit (config.kylib.caddy)
     createCaddyProxy
     ;
 
-  domain = "prometheus.${config.kybe.lib.domain}";
+  domain = "prometheus.${config.kylib.domain}";
 in
 {
   sops.secrets = {

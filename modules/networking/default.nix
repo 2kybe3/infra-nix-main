@@ -7,8 +7,8 @@
       allowedTCPPorts = [ 22 ];
     };
     hosts."127.0.0.1" = [
-      "*.${config.kybe.lib.domain}"
-      "${config.kybe.lib.domain}"
+      "*.${config.kylib.domain}"
+      "${config.kylib.domain}"
     ];
     nameservers = [ "10.0.4.1" ];
   };

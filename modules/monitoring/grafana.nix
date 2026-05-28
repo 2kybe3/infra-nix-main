@@ -4,11 +4,11 @@
   ...
 }:
 let
-  inherit (config.kybe.lib.caddy)
+  inherit (config.kylib.caddy)
     createCaddyProxy
     ;
 
-  domain = "grafana.${config.kybe.lib.domain}";
+  domain = "grafana.${config.kylib.domain}";
 in
 {
   sops.secrets = {
