@@ -9,21 +9,26 @@ let
       return data
     end
   '';
+
+  owner = config.services.webhook-router.user;
 in
 {
   sops.secrets = {
     webhook-router-discord-main = {
       sopsFile = "${self}/secrets/webhook-router.yaml";
       key = "discord-main";
+      inherit owner;
     };
     webhook-router-discord-renovate = {
       sopsFile = "${self}/secrets/webhook-router.yaml";
       key = "discord-renovate";
+      inherit owner;
     };
 
     webhook-router-input-git-kybe-xyz-system = {
       sopsFile = "${self}/secrets/webhook-router.yaml";
       key = "input-git-kybe-xyz-system";
+      inherit owner;
     };
   };
 
