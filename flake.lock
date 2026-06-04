@@ -199,11 +199,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1780602841,
-        "narHash": "sha256-/Sm2fma9mu9Rc1I1cISvGzzcMDq3/EKbq4T3Buv9wVw=",
-        "rev": "507b09f7c5f66856ff7846a80e7f0781751873e3",
+        "lastModified": 1780603271,
+        "narHash": "sha256-Mm/2BKvatxfXTlVIkNYO2NwLl3NPMQGMx9nPLMHV2TE=",
+        "rev": "446a31f2bae0ae11e7495b9756eb1f52b5b87cf8",
         "type": "tarball",
-        "url": "https://git.kybe.xyz/api/v1/repos/2kybe3/webhook-router/archive/507b09f7c5f66856ff7846a80e7f0781751873e3.tar.gz?rev=507b09f7c5f66856ff7846a80e7f0781751873e3"
+        "url": "https://git.kybe.xyz/api/v1/repos/2kybe3/webhook-router/archive/446a31f2bae0ae11e7495b9756eb1f52b5b87cf8.tar.gz?rev=446a31f2bae0ae11e7495b9756eb1f52b5b87cf8"
       },
       "original": {
         "type": "tarball",
