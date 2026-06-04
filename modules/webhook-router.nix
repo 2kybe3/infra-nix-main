@@ -16,9 +16,9 @@ in
       sopsFile = "${self}/secrets/webhook-router.yaml";
       key = "discord-main";
     };
-    webhook-router-discord-forgejo = {
+    webhook-router-discord-renovate = {
       sopsFile = "${self}/secrets/webhook-router.yaml";
-      key = "discord-forgejo";
+      key = "discord-renovate";
     };
 
     webhook-router-input-git-kybe-xyz-system = {
@@ -40,18 +40,18 @@ in
           url_file = ss.webhook-router-discord-main.path;
           formatter.script = passthruFormatter;
         };
-        discord-forgejo = {
-          url_file = ss.webhook-router-discord-forgejo.path;
+        discord-renovate = {
+          url_file = ss.webhook-router-discord-renovate.path;
           formatter.script = passthruFormatter;
         };
       };
 
-      inputs.forgejo-git-kybe-xyz-system = {
+      inputs.renovate-git-kybe-xyz-system = {
         token_file = ss.webhook-router-input-git-kybe-xyz-system.path;
         fallback_target = "discord-main";
         rules = [
           {
-            name = "drop-forgejo-issue-edits";
+            name = "drop-renovate-issue-edits";
             script = ''
               function(data)
                 local embed = data.embeds and data.embeds[1]
@@ -72,11 +72,11 @@ in
             '';
           }
           {
-            name = "forgejo-redirect";
+            name = "renovate-redirect";
             script = ''
               function(data)
                 if data.username == "${renovateBotUserName}" then
-                  return "redirect", "discord-forgejo"
+                  return "redirect", "discord-renovate"
                 end
               end
             '';
