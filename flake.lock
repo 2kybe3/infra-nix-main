@@ -199,11 +199,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1780603271,
-        "narHash": "sha256-Mm/2BKvatxfXTlVIkNYO2NwLl3NPMQGMx9nPLMHV2TE=",
+        "lastModified": 1780608743,
+        "narHash": "sha256-rONi0iMjixRWZe4EiL39ZYqDKUfuaaPORzbc8pQ1O4g=",
         "ref": "refs/heads/main",
-        "rev": "446a31f2bae0ae11e7495b9756eb1f52b5b87cf8",
-        "revCount": 7,
+        "rev": "601da2d7a6fec7c864d6e3c1aef34ca1cd7f3434",
+        "revCount": 8,
         "type": "git",
         "url": "https://git.kybe.xyz/2kybe3/webhook-router"
       },
