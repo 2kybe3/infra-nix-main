@@ -85,7 +85,7 @@ in
                   return
                 end
 
-                if embed.author.name ~= "${renovateBotUserName}" then
+                if embed.author.name == "${renovateBotUserName}" then
                   return "redirect", "discord-renovate"
                 end
               end
