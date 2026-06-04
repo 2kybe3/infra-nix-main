@@ -60,7 +60,7 @@ in
             script = ''
               function(data)
                 local embed = data.embeds and data.embeds[1]
-                if not embed or not embed.description or not embed.author or not embed.author.name then
+                if not embed or not embed.title or not embed.author or not embed.author.name then
                   return
                 end
 
@@ -68,7 +68,7 @@ in
                   return
                 end
 
-                if not string.find(embed.description, "Issue edited", 1, true) then
+                if not string.find(embed.title, "Issue edited", 1, true) then
                   return
                 end
 
