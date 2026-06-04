@@ -60,11 +60,11 @@ in
             script = ''
               function(data)
                 local embed = data.embeds and data.embeds[1]
-                if not embed or not embed.description then
+                if not embed or not embed.description or not embed.author or not embed.author.name then
                   return
                 end
 
-                if data.username ~= "renovate-bot" then
+                if embed.author.name ~= "${renovateBotUserName}" then
                   return
                 end
 
@@ -80,7 +80,12 @@ in
             name = "renovate-redirect";
             script = ''
               function(data)
-                if data.username == "${renovateBotUserName}" then
+                local embed = data.embeds and data.embeds[1]
+                if not embed or not embed.description or not embed.author or not embed.author.name then
+                  return
+                end
+
+                if embed.author.name ~= "${renovateBotUserName}" then
                   return "redirect", "discord-renovate"
                 end
               end
