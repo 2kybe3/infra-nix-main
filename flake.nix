@@ -8,11 +8,15 @@
     treefmt = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-
     };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    webhook-router = {
+      url = "https://git.kybe.xyz/2kybe3/webhook-router/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -24,6 +28,7 @@
       treefmt,
       sops-nix,
       flake-utils,
+      webhook-router,
     }:
     let
       system = "x86_64-linux";
@@ -40,6 +45,7 @@
         modules = [
           ./host/infra-nix-main/default.nix
           sops-nix.nixosModules.sops
+          webhook-router.nixosModules.webhook-router
         ];
       };
     }

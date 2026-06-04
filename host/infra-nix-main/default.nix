@@ -17,6 +17,7 @@ let
     "syncthing"
     "monitoring"
     "networking"
+    "webhook-router"
   ];
   moduleImports = map (
     m:

@@ -3,7 +3,6 @@
   programs = {
     typos.enable = true;
     nixfmt.enable = true;
-    yamlfmt.enable = true;
   };
   settings.formatter.typos.excludes = [
     ".sops.yaml"
