@@ -16,7 +16,7 @@
     };
 
     webhook-router = {
-      url = "https://git.kybe.xyz/2kybe3/webhook-router/archive/main.tar.gz";
+      url = "git+https://git.kybe.xyz/2kybe3/webhook-router";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

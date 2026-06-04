@@ -201,13 +201,15 @@
       "locked": {
         "lastModified": 1780603271,
         "narHash": "sha256-Mm/2BKvatxfXTlVIkNYO2NwLl3NPMQGMx9nPLMHV2TE=",
+        "ref": "refs/heads/main",
         "rev": "446a31f2bae0ae11e7495b9756eb1f52b5b87cf8",
-        "type": "tarball",
-        "url": "https://git.kybe.xyz/api/v1/repos/2kybe3/webhook-router/archive/446a31f2bae0ae11e7495b9756eb1f52b5b87cf8.tar.gz?rev=446a31f2bae0ae11e7495b9756eb1f52b5b87cf8"
+        "revCount": 7,
+        "type": "git",
+        "url": "https://git.kybe.xyz/2kybe3/webhook-router"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://git.kybe.xyz/2kybe3/webhook-router/archive/main.tar.gz"
+        "type": "git",
+        "url": "https://git.kybe.xyz/2kybe3/webhook-router"
       }
     }
   },
