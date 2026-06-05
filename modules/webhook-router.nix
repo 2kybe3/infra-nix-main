@@ -56,7 +56,7 @@ in
         fallback_target = "discord-main";
         rules = [
           {
-            name = "drop-renovate-issue-edits";
+            name = "drop-renovate-issue-edits-and-renovate-actions";
             script = ''
               function(data)
                 local embed = data.embeds and data.embeds[1]
@@ -68,11 +68,12 @@ in
                   return
                 end
 
-                if not string.find(embed.title, "Issue edited", 1, true) then
-                  return
+                if string.find(embed.title, "Issue edited", 1, true)
+                  or string.find(embed.title, "Renovate Action Succeeded in renovate/renovate main", 1, true) then
+                  return "drop"
                 end
 
-                return "drop"
+                return
               end
             '';
           }
