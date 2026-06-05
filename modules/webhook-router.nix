@@ -24,6 +24,11 @@ in
       key = "discord-renovate";
       inherit owner;
     };
+    webhook-router-discord-mirrors = {
+      sopsFile = "${self}/secrets/webhook-router.yaml";
+      key = "discord-mirrors";
+      inherit owner;
+    };
 
     webhook-router-input-git-kybe-xyz-system = {
       sopsFile = "${self}/secrets/webhook-router.yaml";
@@ -49,6 +54,10 @@ in
           url_file = ss.webhook-router-discord-renovate.path;
           formatter.script = passthruFormatter;
         };
+        discord-mirrors = {
+          url_file = ss.webhook-router-discord-mirrors.path;
+          formatter.script = passthruFormatter;
+        };
       };
 
       inputs.renovate-git-kybe-xyz-system = {
@@ -64,26 +73,31 @@ in
                   return
                 end
 
+                if string.find(embed.title, "Renovate Action Succeeded in renovate/renovate main", 1, true) then
+                  return "drop"
+                end
+
                 if embed.author.name ~= "${renovateBotUserName}" then
                   return
                 end
 
-                if string.find(embed.title, "Issue edited", 1, true)
-                  or string.find(embed.title, "Renovate Action Succeeded in renovate/renovate main", 1, true) then
+                if string.find(embed.title, "Issue edited", 1, true) then
                   return "drop"
                 end
-
-                return
               end
             '';
           }
           {
-            name = "renovate-redirect";
+            name = "redirects";
             script = ''
               function(data)
                 local embed = data.embeds and data.embeds[1]
                 if not embed or not embed.description or not embed.author or not embed.author.name then
                   return
+                end
+
+                if embed.author.name == "mirrors" then
+                  return "redirect", "discord-mirrors"
                 end
 
                 if embed.author.name == "${renovateBotUserName}" then
