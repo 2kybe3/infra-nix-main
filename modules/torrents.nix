@@ -19,11 +19,12 @@ let
   wgInterface = "mullvad0";
   wgDns = "10.64.0.1";
   wgIps = [
-    "10.66.190.176/32"
-    "fc00:bbbb:bbbb:bb01::3:beaf/128"
+    "10.74.102.116/32"
+    "fc00:bbbb:bbbb:bb01::b:6673/128"
   ];
   wgEndpoint = "193.32.248.66:51820";
-  wgPublicKey = "0qSP0VxoIhEhRK+fAHVvmfRdjPs2DmmpOCNLFP/7cGw=";
+  # noble cub
+  wgPublicKey = "K2kAtnMQcr4fZydLSG7ShTciRPZqfIDwJ46WugURcBU=";
 in
 {
   services = {
