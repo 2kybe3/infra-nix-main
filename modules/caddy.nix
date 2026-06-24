@@ -29,7 +29,8 @@ in
       hash = "sha256-LEpsjwy0CYx04cg42CfG6/sFv86kHmhezUG6yGedYcA=";
     };
 
-    virtualHosts."${domain}" = createRawCaddyProxy "respond \"${config.kylib.hostName}\n\n${links}\"";
+    virtualHosts."${domain}" =
+      createRawCaddyProxy "respond \"${config.networking.hostName}\n\n${links}\"";
     environmentFile = config.sops.secrets.caddy.path;
   };
 

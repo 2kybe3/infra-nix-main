@@ -19,6 +19,7 @@ let
     "networking"
     "webhook-router"
   ];
+
   moduleImports = map (
     m:
     let
@@ -33,8 +34,10 @@ in
   ]
   ++ moduleImports;
 
-  kylib.hostName = "nix-main";
-  networking.hostId = "e2775ce5";
+  networking = {
+    hostName = "nix-main";
+    hostId = "e2775ce5";
+  };
 
   system.stateVersion = "25.05";
 }

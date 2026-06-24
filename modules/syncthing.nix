@@ -12,7 +12,6 @@ let
     createCaddyProxy
     ;
 
-  syncthingUser = "root";
   homeDir = "/root";
   folderDir = "${homeDir}/syncthing";
   dataDir = folderDir;
@@ -31,14 +30,12 @@ let
     devices = allDevices;
   };
 
-  # Generate a folder ID (similar to Syncthing's default format):
-  #   nix run ./tools/syncthing-folder-id-gen
   folderDefs = {
     "phone/documents" = {
       id = "nbrf9-2w4wy";
       path = "phone/Documents";
     };
-    "pictures" = {
+    "phone/pictures" = {
       id = "labpe-fxw3q";
       path = "phone/pictures";
     };
@@ -46,6 +43,7 @@ let
       id = "d7tbq-371tj";
       path = "phone/dcim";
     };
+
     "documents" = {
       id = "gqe7d-gqjr2";
       path = "documents";
@@ -64,15 +62,17 @@ in
 {
   sops.secrets = {
     syncthingPass = {
-      sopsFile = "${self}/secrets/syncthing.yaml";
+      sopsFile = "${self}/secrets/syncthing/syncthing.yaml";
       owner = config.services.syncthing.user;
     };
     syncthingKey = {
-      sopsFile = "${self}/secrets/${config.kylib.hostName}-syncthing-key.pem";
+      sopsFile = "${self}/secrets/syncthing/key.pem";
+      owner = config.services.syncthing.user;
       format = "binary";
     };
     syncthingCert = {
-      sopsFile = "${self}/secrets/${config.kylib.hostName}-syncthing-cert.pem";
+      sopsFile = "${self}/secrets/syncthing/cert.pem";
+      owner = config.services.syncthing.user;
       format = "binary";
     };
   };
@@ -94,7 +94,7 @@ in
     overrideDevices = true;
     overrideFolders = true;
     inherit dataDir;
-    user = syncthingUser;
+    user = "root";
     guiAddress = "0.0.0.0:8384";
     guiPasswordFile = config.sops.secrets.syncthingPass.path;
     cert = config.sops.secrets.syncthingCert.path;

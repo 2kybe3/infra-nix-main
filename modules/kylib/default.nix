@@ -8,16 +8,13 @@ in
       type = lib.types.attrs;
       default = import ./caddy.nix;
     };
-    hostName = lib.mkOption {
-      type = lib.types.str;
-    };
     baseDomain = lib.mkOption {
       type = lib.types.str;
       default = "kybe.xyz";
     };
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "${cfg.hostName}.${cfg.baseDomain}";
+      default = "${config.networking.hostName}.${cfg.baseDomain}";
     };
   };
 }

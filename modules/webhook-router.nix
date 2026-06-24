@@ -13,29 +13,29 @@ let
   owner = config.services.webhook-router.user;
 in
 {
-  sops.secrets = {
-    webhook-router-discord-main = {
+  sops.secrets =
+    let
       sopsFile = "${self}/secrets/webhook-router.yaml";
-      key = "discord-main";
-      inherit owner;
-    };
-    webhook-router-discord-renovate = {
-      sopsFile = "${self}/secrets/webhook-router.yaml";
-      key = "discord-renovate";
-      inherit owner;
-    };
-    webhook-router-discord-mirrors = {
-      sopsFile = "${self}/secrets/webhook-router.yaml";
-      key = "discord-mirrors";
-      inherit owner;
-    };
+    in
+    {
+      webhook-router-discord-main = {
+        inherit sopsFile owner;
+        key = "discord-main";
+      };
+      webhook-router-discord-renovate = {
+        inherit sopsFile owner;
+        key = "discord-renovate";
+      };
+      webhook-router-discord-mirrors = {
+        inherit sopsFile owner;
+        key = "discord-mirrors";
+      };
 
-    webhook-router-input-git-kybe-xyz-system = {
-      sopsFile = "${self}/secrets/webhook-router.yaml";
-      key = "input-git-kybe-xyz-system";
-      inherit owner;
+      webhook-router-input-git-kybe-xyz-system = {
+        inherit sopsFile owner;
+        key = "input-git-kybe-xyz-system";
+      };
     };
-  };
 
   services.webhook-router = {
     enable = true;

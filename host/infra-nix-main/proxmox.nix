@@ -1,15 +1,9 @@
 { modulesPath, ... }:
 {
-  imports = [ (modulesPath + "/virtualisation/proxmox-lxc.nix") ];
+  imports = [
+    (modulesPath + "/virtualisation/proxmox-lxc.nix")
+  ];
 
-  nix.settings = {
-    sandbox = false;
-  };
-
-  proxmoxLXC = {
-    manageNetwork = false;
-    privileged = false;
-  };
-
+  proxmoxLXC.manageHostName = true;
   services.fstrim.enable = false;
 }

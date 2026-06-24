@@ -11,28 +11,29 @@ let
   domain = "prometheus.${config.kylib.domain}";
 in
 {
-  sops.secrets = {
-    syncthing-api-server = {
-      sopsFile = "${self}/secrets/syncthing-api.yaml";
-      owner = "prometheus";
-      key = "server";
+  sops.secrets =
+    let
+      api = "${self}/secrets/prometheus/syncthing-api.yaml";
+      owner = config.systemd.services.prometheus.serviceConfig.User;
+    in
+    {
+      syncthing-api-server = {
+        inherit owner;
+        key = "server";
+        sopsFile = api;
+      };
+      kybe-backend-api = {
+        sopsFile = "${self}/secrets/prometheus/kybe-backend.yaml";
+        inherit owner;
+        key = "key";
+      };
+      uptime-kuma-api = {
+        sopsFile = "${self}/secrets/prometheus/uptime-kuma.yaml";
+        inherit owner;
+        key = "key";
+      };
     };
-    syncthing-api-knx = {
-      sopsFile = "${self}/secrets/syncthing-api.yaml";
-      owner = "prometheus";
-      key = "knx";
-    };
-    kybe-backend-api = {
-      sopsFile = "${self}/secrets/kybe-backend.yaml";
-      owner = "prometheus";
-      key = "key";
-    };
-    uptime-kuma-api = {
-      sopsFile = "${self}/secrets/uptime-kuma.yaml";
-      owner = "prometheus";
-      key = "key";
-    };
-  };
+
   services.prometheus = {
     enable = true;
     port = 9001;
