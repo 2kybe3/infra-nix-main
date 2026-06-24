@@ -19,8 +19,8 @@ let
   wgInterface = "mullvad0";
   wgDns = "10.64.0.1";
   wgIps = [
-    "10.71.204.152/32"
-    "fc00:bbbb:bbbb:bb01::8:cc97/128"
+    "10.69.216.71/32"
+    "fc00:bbbb:bbbb:bb01::6:d846/128"
   ];
   wgEndpoint = "193.32.248.66:51820";
   # noble cub
